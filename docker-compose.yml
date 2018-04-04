@@ -1,0 +1,18 @@
+version: "2"
+services:
+  be_exercise:
+    image: gahal1599/be_exercise
+    ports:
+      - 8080:8080
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:Ee123123@db:5432/exercise
+      - PORT=8080
+  db:
+    image: gahal1599/be_exercise/database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Ee123123
+      - POSTGRES_DB=exercise
